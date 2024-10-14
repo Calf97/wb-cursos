@@ -23,9 +23,10 @@ const routes = [
     component: () => import("../views/ContatoView.vue"),
   },
   {
-    path: '/:catchAll(.*)',  // Captura todas as rotas desconhecidas
-    redirect: '/',
-  },
+    path: '/:pathMatch(.*)*', // Atualize para esse formato
+    name: 'NotFound',
+    component: () => import("../components/NotFound.vue"),
+  }
 ];
 
 const router = createRouter({
