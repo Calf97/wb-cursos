@@ -46,11 +46,11 @@
       gtag('config', 'GT-M69F4HB5');
 
       document.getElementById('accept-cookies').addEventListener('click', function() {
-        window.localStorage.setItem('true')
+        window.localStorage.setItem('cookiesAccepted', true);
       })
 
       document.getElementById('deny-cookies').addEventListener('click', function() {
-        window.localStorage.setItem('false')
+        window.localStorage.setItem('cookiesAccepted', false);
       })
     </script>
 </html>
