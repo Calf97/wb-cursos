@@ -45,10 +45,12 @@
 
       document.getElementById('accept-cookies').addEventListener('click', function() {
         window.localStorage.setItem('cookiesAccepted', 'true');
+        document.getElementById('cookie-consent-banner').style.display = 'none';
       });
 
       document.getElementById('deny-cookies').addEventListener('click', function() {
         window.localStorage.setItem('cookiesAccepted', 'false');
+        document.getElementById('cookie-consent-banner').style.display = 'none';
       });
     </script>
   </body>
