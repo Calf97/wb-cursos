@@ -11,14 +11,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N6X9FQRQ');</script>
-    <!-- End Google Tag Manager -->
+    <!-- Inicializar o Consent Mode -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      // Definir o consentimento inicial como "denied"
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied'
+      });
+    </script>
   </head>
+
   <body>
     <!-- Banner de consentimento de cookies -->
     <div id="cookie-consent-banner" style="position: fixed; bottom: 0; width: 100%; background: #333; color: white; padding: 20px; text-align: center;">
@@ -37,33 +44,49 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GT-M69F4HB5"></script>
+
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GT-M69F4HB5');
+      // Função para carregar o Google Tag Manager
+      function loadGTM() {
+        (function(w,d,s,l,i){
+          w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+          var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:''; 
+          j.async=true; 
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl; 
+          f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-N6X9FQRQ');
+      }
 
-      // Verificar se o consentimento já foi dado
-      window.addEventListener('load', function() {
-        var cookiesAccepted = localStorage.getItem('cookiesAccepted');
+      // Função para inicializar o Google Analytics
+      function loadAnalytics() {
+        gtag('config', 'GT-M69F4HB5');
+      }
 
-        // Exibir o banner de consentimento se ainda não houver decisão
-        if (!cookiesAccepted) {
-            document.getElementById('cookie-consent-banner').style.display = 'block';
-        } else if (cookiesAccepted === 'true') {
-            // Carregar GTM se o consentimento foi dado anteriormente
-            loadGTM();
-        }
-      });
+      // Verifica se o consentimento já foi dado anteriormente
+      if (!localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookie-consent-banner').style.display = 'block';
+      }
 
+      // Função para aceitar cookies
       document.getElementById('accept-cookies').addEventListener('click', function() {
-        window.localStorage.setItem('cookiesAccepted', 'true');
+        localStorage.setItem('cookiesAccepted', 'true');
         document.getElementById('cookie-consent-banner').style.display = 'none';
+        loadGTM(); // Carregar Google Tag Manager
+        loadAnalytics(); // Carregar Google Analytics
+        window.gtag('consent', 'update', {
+          'ad_storage': 'granted',
+          'analytics_storage': 'granted'
+        });
       });
 
+      // Função para recusar cookies
       document.getElementById('deny-cookies').addEventListener('click', function() {
-        window.localStorage.setItem('cookiesAccepted', 'false');
+        localStorage.setItem('cookiesAccepted', 'false');
         document.getElementById('cookie-consent-banner').style.display = 'none';
+        window.gtag('consent', 'update', {
+          'ad_storage': 'denied',
+          'analytics_storage': 'denied'
+        });
       });
     </script>
   </body>
