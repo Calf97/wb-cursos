@@ -22,6 +22,20 @@
       })(window,document,'script','dataLayer','GTM-N6X9FQRQ');
     </script>
     <!-- End Google Tag Manager -->
+
+    <!-- Inicializar o Consent Mode -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      // Definir o consentimento inicial como "denied"
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied'
+      });
+    </script>
   </head>
 
   <body>
@@ -40,20 +54,16 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Google Tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GT-M69F4HB5"></script>
-    
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      // Inicialmente não configurar o Google Analytics até que o consentimento seja dado
+    <script>
+      // Função para inicializar o Google Analytics somente após o consentimento
       function loadAnalytics() {
         gtag('config', 'GT-M69F4HB5');
       }
 
-      // Verifica se o consentimento foi dado anteriormente
+      // Verifica se o consentimento já foi dado anteriormente
       if (!localStorage.getItem('cookiesAccepted')) {
         document.getElementById('cookie-consent-banner').style.display = 'block';
       }
