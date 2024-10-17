@@ -11,18 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){
-        w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-        var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:''; j.async=true; j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;
-        f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N6X9FQRQ');
-    </script>
-    <!-- End Google Tag Manager -->
-
     <!-- Inicializar o Consent Mode -->
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -40,7 +28,7 @@
 
   <body>
     <!-- Banner de consentimento de cookies -->
-    <div id="cookie-consent-banner" style="position: fixed; bottom: 0; width: 100%; background: #333; color: white; padding: 20px; text-align: center; display: none;">
+    <div id="cookie-consent-banner" style="position: fixed; bottom: 0; width: 100%; background: #333; color: white; padding: 20px; text-align: center;">
       <p>Este site utiliza cookies para melhorar sua experiência. <a href="/politica-de-cookies" style="color: lightblue;">Saiba mais</a>.</p>
       <button id="accept-cookies" style="margin-right: 10px; padding: 10px; background-color: green; color: white; border: none; cursor: pointer;">Aceitar</button>
       <button id="deny-cookies" style="padding: 10px; background-color: red; color: white; border: none; cursor: pointer;">Recusar</button>
@@ -58,7 +46,18 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=GT-M69F4HB5"></script>
 
     <script>
-      // Função para inicializar o Google Analytics somente após o consentimento
+      // Função para carregar o Google Tag Manager
+      function loadGTM() {
+        (function(w,d,s,l,i){
+          w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+          var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:''; 
+          j.async=true; 
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl; 
+          f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-N6X9FQRQ');
+      }
+
+      // Função para inicializar o Google Analytics
       function loadAnalytics() {
         gtag('config', 'GT-M69F4HB5');
       }
@@ -72,7 +71,8 @@
       document.getElementById('accept-cookies').addEventListener('click', function() {
         localStorage.setItem('cookiesAccepted', 'true');
         document.getElementById('cookie-consent-banner').style.display = 'none';
-        loadAnalytics(); // Carregar o Google Analytics
+        loadGTM(); // Carregar Google Tag Manager
+        loadAnalytics(); // Carregar Google Analytics
         window.gtag('consent', 'update', {
           'ad_storage': 'granted',
           'analytics_storage': 'granted'
